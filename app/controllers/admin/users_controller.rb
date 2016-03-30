@@ -1,8 +1,8 @@
 class Admin::UsersController < ApplicationController
 
-  before_filter :is_admin?
+  before_action :is_admin?, :except => [:login]
 
-  def index 
+  def login
     @user = User.new
     @skip_footer = true
   end
@@ -12,9 +12,10 @@ class Admin::UsersController < ApplicationController
   #   render 'users/admin'
   # end
 
-  def is_admin?
-
+  def index
   end
+
+
 
   protected
 

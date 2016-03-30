@@ -16,6 +16,16 @@ class ApplicationController < ActionController::Base
     @current_user ||=User.find(session[:user_id]) if session[:user_id]
   end
 
+  def is_admin?
+    if !(defined?(current_user) && current_user.admin)
+      # session[:user_id] = @user.id
+      # #need to change to admin home
+      # redirect_to admin_users_path, notice: "Hi, #{@user.firstname}!"
+      #add redirect with flash notice.
+      redirect_to movies_path, notice: "You are being redirected, since you do not have admin priviledges."
+    end
+  end
+
   helper_method :current_user
 
 end
