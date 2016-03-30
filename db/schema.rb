@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160330005650) do
     t.datetime "updated_at"
     t.string   "firstname"
     t.string   "lastname"
+    t.boolean  "admin",           default: false, null: false
   end
 
 end
