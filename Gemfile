@@ -35,8 +35,12 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+# Enables easier use of fileuploading
 gem 'carrierwave'
 gem 'rmagick'
+
+# Gives pagination
+gem 'kaminari'
 
 gem 'pry'
 

@@ -6,6 +6,17 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a id="brand_name" class="navbar-brand" href="/"><i class="fa fa-trophy"></i> Rotten Mangoes</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+<br>
+<hr>
 <body>
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value) %>
