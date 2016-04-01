@@ -42,6 +42,9 @@ gem 'rmagick'
 # Gives pagination
 gem 'kaminari'
 
+# Allows ability to switch user
+# gem 'switch_user'
+
 gem 'pry'
 
 # Use unicorn as the app server

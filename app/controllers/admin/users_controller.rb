@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
   #   render 'users/admin'
   # end
   def index
-    @users = User.page(params[:page]).per(10)
+    @users = User.page(params[:page]).per(9)
   end
 
   def new
@@ -48,7 +48,18 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
-  protected
+  def impersonate
+    @user = User.find(params[:id])
+    session[:actual_user_id] = session[:user_id]
+    session[:user_id] = @user.id
+    redirect_to movies_path
+  end
+
+  private 
+
+  def only_admins
+    redirect_to(root_path) unless admin?
+  end
 
   def user_params
     params.require(:user).permit(:email, :firstname, :lastname, :password, :password_confirmation, :admin)

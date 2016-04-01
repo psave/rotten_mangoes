@@ -29,4 +29,19 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  def admin?
+    current_user && (current_user.admin? || impersonating?)
+  end
+
+  def impersonating?
+    if session[:actual_user_id].present?
+      user = User.find(session[:actual_user_id])
+      user.admin?
+    else
+      false
+    end
+  end
+
+  helper_method :admin?, :impersonating?
+
 end
