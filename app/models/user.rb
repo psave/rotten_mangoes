@@ -10,4 +10,16 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
+  def self.filter(user_type, search_term)
+    users = User.all
+    if user_type == "user_id"
+      users = users.where("id like ?", "%#{search_term}%")
+    elsif user_type == "user_email"
+      users = users.where("email like ?", "%#{search_term}%")
+    elsif user_type == "all"
+      users = users.where("id like ? OR email like ?", "%#{search_term}%", "%#{search_term}%")
+    end
+    users
+  end
+
 end

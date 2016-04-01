@@ -4,6 +4,21 @@
 
 <%= paginate @users %>
 
+<%= form_tag admin_users_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+
+    <%= select_tag(:type, options_for_select([
+      ['Search All', 'all'], 
+      ['User Id', 'user_id'], 
+      ['User Email', 'user_email'] 
+      ])) %>
+
+    <%= submit_tag "Go", :title => nil %>
+
+  </p>
+<% end %>
+
 <table class = "table table-striped">
    <caption>Users Table</caption>
    
