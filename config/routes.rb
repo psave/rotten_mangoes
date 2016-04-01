@@ -6,11 +6,19 @@ RottenMangoes::Application.routes.draw do
 
   resources :users, only: [:new, :create]
   
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy] do 
+    post :unimpersonate, on: :collection
+  end
   
   namespace :admin do 
     #get "login", to: "users#login"
-    resources :users
+    resources :users do
+      #get 'preview', on: :member
+      post :impersonate, on: :member
+      # member do
+      #   post :preview
+      # end
+    end
   end
 
   root to: 'movies#index'

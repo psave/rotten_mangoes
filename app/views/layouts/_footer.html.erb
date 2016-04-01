@@ -2,6 +2,8 @@
   <small>
     <% if current_user && current_user.admin %>
       Signed in as ADMIN: <%= current_user.full_name %> (<%= link_to "Log out", session_path("current"), method: :delete %>)
+    <% elsif impersonating? %>
+      Signed in as ADMIN, IMPERSONATING: <%= current_user.full_name %> (<%= link_to "Unimpersonate", unimpersonate_sessions_path("current"), method: :post %>)
     <% elsif current_user %>
       Signed in as <%= current_user.full_name %> (<%= link_to "Log out", session_path("current"), method: :delete %>)
     <% else %>
