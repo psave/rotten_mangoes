@@ -12,7 +12,8 @@ class Admin::UsersController < ApplicationController
   #   render 'users/admin'
   # end
   def index
-    @users = User.page(params[:page]).per(9)
+    # @users = User.page(params[:page]).per(9)
+    @users = User.filter(params[:type], params[:search]).page(params[:page]).per(9)
   end
 
   def new

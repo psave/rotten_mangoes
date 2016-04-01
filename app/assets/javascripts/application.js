@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$(document).ready(function() {
+
+  $('.dropdown-menu li').on('click', function() {
+    var query_param = $(this).data('query');
+    $('#query').val(query_param);
+  });
+
+});

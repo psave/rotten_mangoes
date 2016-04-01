@@ -1,5 +1,27 @@
 <%= link_to "Submit a movie!", new_movie_path %>
 <hr>
+<%= form_tag movies_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+
+    <%= select_tag(:type, options_for_select([
+      ['Search All', 'all'], 
+      ['Title', 'title'], 
+      ['Director', 'director'] 
+      ])) %>
+
+    <%= select_tag(:length, options_for_select([
+      ['Any Length', 'any_length'], 
+      ['Under 90 minutes', 'under_90_mins'], 
+      ['Between 90 and 120 minutes', 'between_90_and_120_mins'], 
+      ['Over 120 minutes', 'over_120_mins'] 
+      ])) %>
+
+    <%= submit_tag "Go", :title => nil %>
+
+  </p>
+<% end %>
+
 <% @movies.each do |movie| %>
   <%= link_to image_tag(movie.image), movie_path(movie) %>
   <h2><%= link_to movie.title, movie_path(movie) %></h2>
