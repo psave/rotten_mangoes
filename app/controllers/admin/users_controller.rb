@@ -12,7 +12,6 @@ class Admin::UsersController < ApplicationController
   #   render 'users/admin'
   # end
   def index
-    # @users = User.page(params[:page]).per(9)
     @users = User.filter(params[:type], params[:search]).page(params[:page]).per(9)
   end
 
@@ -45,8 +44,20 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to admin_users_path
+    
+    # POST /users
+    # POST /users.json
+ 
+      #should I use destroy here instead of save? 
+    if @user.destroy
+      # Tell the UserMailer to send a welcome email after save
+      UserMailer.goodbye_email(@user).deliver
+
+      redirect_to admin_users_path, notice: 'User was successfully deleted.'
+    else
+      redirect_to admin_users_path, notice: 'User was NOT deleted.'
+    end
+    #redirect_to admin_users_path
   end
 
   def impersonate
