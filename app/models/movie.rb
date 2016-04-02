@@ -2,6 +2,12 @@ class Movie < ActiveRecord::Base
 
   has_many :reviews
 
+  scope :search_title, ->(search_term) {  where("title like ?", "%#{search_term}%")}
+
+  scope :search_director, -> (search_term) { where("director like ?", "%#{search_term}%")}
+
+  scope :search_title_or_director, -> (search_term) { where("title like ? OR director like ?", "%#{search_term}%", "%#{search_term}%")}
+
   validates :title,
     presence: true
 
@@ -32,11 +38,11 @@ class Movie < ActiveRecord::Base
   def self.filter(movie_type, movie_length, search_term)
     movies = Movie.all
     if movie_type == "title"
-      movies = movies.where("title like ?", "%#{search_term}%")
+      movies = movies.search_title(search_term)
     elsif movie_type == "director"
-      movies = movies.where("director like ?", "%#{search_term}%")
+      movies = movies.search_director(search_term)
     elsif movie_type == "all"
-      movies = movies.where("title like ? OR director like ?", "%#{search_term}%", "%#{search_term}%")
+      movies = movies.search_title_or_director(search_term)
     end
 
     if movie_length == "under_90_mins"
